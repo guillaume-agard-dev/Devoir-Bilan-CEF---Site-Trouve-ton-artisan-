@@ -1,0 +1,31 @@
+@use "./variables" as *;
+
+/* focus visible accessible */
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 116, 199, .35); /* $primary */
+}
+
+/* typo fluide : clamp(min, vw, max) */
+@mixin fluid-type($min: 16px, $max: 18px) {
+  font-size: clamp($min, 1.1vw, $max);
+}
+
+/* bouton rapide */
+@mixin btn($bg: $primary, $color: #fff) {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .625rem 1rem;
+  border-radius: $radius;
+  background: $bg;
+  color: $color;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: $shadow-sm;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+
+  &:hover { transform: translateY(-1px); box-shadow: $shadow-md; }
+  &:active { transform: translateY(0); }
+  &:focus-visible { @include focus-ring; }
+}

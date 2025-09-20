@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
+// Sass global
+import "./styles/main.scss";
+
 // Bootstrap (CSS + JS avec Popper inclus)
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'

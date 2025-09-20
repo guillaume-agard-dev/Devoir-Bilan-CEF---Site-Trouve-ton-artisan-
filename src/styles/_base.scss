@@ -1,0 +1,58 @@
+
+@use "./variables" as *;
+@use "./mixins" as mix;   
+@use "./fonts";           
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+  font-family: var(--ff-sans);
+  @include mix.fluid-type(16px, 18px);
+  color: $text-body;
+  background: $bg-page;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: color .15s ease;
+  &:hover { color: $secondary; }
+  &:focus-visible { @include mix.focus-ring; }
+}
+
+.small   { 
+    font-size: .875rem; color: $text-muted; 
+}
+
+.muted   { 
+    color: $text-muted; 
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+.card {
+  border-radius: $radius;
+  background: #f1f8fc;
+  box-shadow: $shadow-sm;
+  padding: 1rem;
+}
+
+.btn        { 
+    @include mix.btn(); 
+}
+
+.btn--ghost { 
+    @include mix.btn(#ffffff, $primary); 
+    border: 1px solid rgba(0,0,0,.08); 
+}
+
+.btn--danger { 
+    @include mix.btn($danger); 
+}

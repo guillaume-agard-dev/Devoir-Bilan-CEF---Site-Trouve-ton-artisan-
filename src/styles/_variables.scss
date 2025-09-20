@@ -1,0 +1,46 @@
+
+/* Variables CSS utilisables partout (y compris dans du JS/inline styles) */
+:root {
+  /* 6 couleurs principales */
+  --clr-primary:  #0074c7; /* bleu (confiance) */
+  --clr-secondary:#00497c; /* bleu foncé (accent/cta) */
+  --clr-accent:   #82b864; /* vert (validation) */
+  --clr-neutral-900:#384050;/* texte fort */
+  --clr-neutral-100:#f1f8fc;/* fonds clairs */
+  --clr-danger:   #cd2c2e; /* erreurs/alertes */
+
+  /* dérivés utiles */
+  --bg-page:      #ffffff;
+  --text-body:    #1F2937;
+  --text-muted:   #6B7280;
+  --radius:       14px;
+  --shadow-sm:    0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:    0 6px 16px rgba(0,0,0,.08);
+}
+
+/* Miroir Sass (confort d’écriture en SCSS) */
+$primary:        var(--clr-primary);
+$secondary:      var(--clr-secondary);
+$accent:         var(--clr-accent);
+$neutral-900:    var(--clr-neutral-900);
+$neutral-100:    var(--clr-neutral-100);
+$danger:         var(--clr-danger);
+
+$bg-page:        var(--bg-page);
+$text-body:      var(--text-body);
+$text-muted:     var(--text-muted);
+
+$radius:         var(--radius);
+$shadow-sm:      var(--shadow-sm);
+$shadow-md:      var(--shadow-md);
+
+
+:root {
+  --bs-primary: var(--clr-primary);
+  --bs-secondary: var(--clr-secondary);
+  --bs-body-bg: var(--bg-page);
+  --bs-body-color: var(--text-body);
+  --bs-link-color: var(--clr-primary);
+  --bs-link-hover-color: var(--clr-secondary);
+  --bs-border-radius: var(--radius);
+}

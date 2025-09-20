@@ -1,0 +1,46 @@
+
+
+@font-face {
+  font-family: "Graphik";
+  src:
+    local("Graphik Regular"),
+    url("../assets/fonts/graphik/Graphik-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src:
+    local("Graphik Medium"),
+    url("../assets/fonts/graphik/Graphik-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src:
+    local("Graphik Semibold"),
+    url("../assets/fonts/graphik/Graphik-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src:
+    local("Graphik Bold"),
+    url("../assets/fonts/graphik/Graphik-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Stack et fallback sûrs */
+:root {
+  --ff-sans: "Graphik", system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}

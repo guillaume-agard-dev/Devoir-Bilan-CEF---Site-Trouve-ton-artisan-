@@ -30,4 +30,14 @@
   }
 
   .navbar-toggler { border-radius: 10px; }
+
+  .btn {
+    background: var(--clr-primary);
+    color: #ffffff;
+
+    &:hover { 
+      background: var(--clr-accent); 
+      color: #ffffff;
+    }
+  }
 }

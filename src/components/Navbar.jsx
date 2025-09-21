@@ -118,7 +118,7 @@ export default function Navbar() {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
             />
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn">
               Rechercher
             </button>
           </form>

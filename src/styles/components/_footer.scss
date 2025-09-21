@@ -1,0 +1,32 @@
+
+.site-footer {
+  background: var(--clr-primary);
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Liens */
+  .nav-link,
+  .link-light {
+    color: rgba(255, 255, 255, 0.95);
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      text-decoration: underline;
+      opacity: 1;
+    }
+  }
+
+  /* Accessibilité focus visible */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  p, address {
+    color: #fff;
+  }
+}

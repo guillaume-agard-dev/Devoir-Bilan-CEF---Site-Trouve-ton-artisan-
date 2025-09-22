@@ -1,0 +1,6 @@
+.rating { display:inline-flex; gap:.15rem; line-height:1; }
+.rating .star { font-size:1.05rem; }
+.rating .star.filled { color:#f5c518; }
+.rating .star.empty { color:#dee2e6; }
+
+.tth-artisan-img { max-height: 420px; object-fit: cover; width: 100%; }

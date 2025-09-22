@@ -37,6 +37,7 @@ function normalize(row) {
   const note = Number.parseFloat(row.note ?? "0") || 0; // ex: "4.5"
   const rating = Math.round(note); // étoiles pleines 0..5
   const name = row.nom ?? "Sans nom";
+  const slug = slugify(name);
   return {
     id: Number(row.id),
     name,
@@ -48,6 +49,8 @@ function normalize(row) {
     slug: slugify(name),
     website: row.site_web ?? "",
     about: row.a_propos ?? "",
+    image: row.image || `/images/artisans/${slug}.jpg`, // <— fallback
+    email: row.email || row.mail || "",                 // <— optionnel
   };
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import heroUrl from "../assets/mountains.jpg";
 import "../styles/pages/_home.scss";
+import ArtisansDuMois from "../components/ArtisansDuMois";
 
 export default function Home() {
   const steps = [
@@ -82,6 +83,9 @@ export default function Home() {
           </ol>
         </div>
       </section>
+
+      <ArtisansDuMois /> 
+
     </main>
   );
 }

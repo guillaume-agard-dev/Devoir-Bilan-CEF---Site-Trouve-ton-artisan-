@@ -1,7 +1,19 @@
 import React from "react";
 import heroUrl from "../assets/mountains.jpg";
 import "../styles/pages/_home.scss";
-import ArtisansDuMois from "../components/ArtisansDuMois";
+import { Link } from "react-router-dom";
+import { getFeaturedArtisans } from "../data/artisansData";
+
+function RatingStars({ value }) {
+  return (
+    <div className="rating" aria-label={`Note ${value} sur 5`}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <span key={i} className={`star ${i < value ? "filled" : "empty"}`}>★</span>
+      ))}
+    </div>
+  );
+}
+
 
 export default function Home() {
   const steps = [
@@ -29,6 +41,8 @@ export default function Home() {
       iconAlt: "Question/Réponse",
     },
   ];
+
+  const featured = getFeaturedArtisans(3);
 
   return (
     <main>
@@ -84,7 +98,28 @@ export default function Home() {
         </div>
       </section>
 
-      <ArtisansDuMois /> 
+      <section className="container my-5">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2 className="h4 m-0">Nos artisans du mois</h2>
+          <Link to="/liste-artisans" className="medium">Voir tous les artisans →</Link>
+        </div>
+
+        <div className="row g-3 g-md-4">
+          {featured.map(a => (
+            <div key={a.id} className="col-12 col-md-6 col-xl-4">
+              <div className="card h-100 shadow-sm position-relative">
+                <div className="card-body">
+                  <h3 className="h5 card-title mb-1">{a.name}</h3>
+                  <RatingStars value={a.rating} />
+                  <div className="medium text-muted mt-2">{a.specialty}</div>
+                  <div className="medium mt-1">📍{a.location}</div>
+                  <Link to={`/fiche-artisans/${a.id}`} className="stretched-link" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
     </main>
   );

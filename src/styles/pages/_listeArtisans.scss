@@ -19,7 +19,7 @@
 /* Sticky nav avec offset pour ta navbar fixe si besoin */
 .tth-sticky-nav {
   position: sticky;
-  top: 88px; // ajuste selon la hauteur de ta navbar
+  top: 88px; // selon la hauteur de la navbar
 }
 
 /* Sections ancrées : marge de scroll pour éviter que le titre soit caché sous la navbar */
@@ -39,9 +39,14 @@
 .rating .star.filled { color: #f5c518; } /* or */
 .rating .star.empty  { color: #dee2e6; }
 
+.card {
+  text-align: center;
+}
+
 .card:hover {
   transform: translateY(-2px);
   transition: transform .15s ease;
+  border-color: var(--clr-primary);
 }
 
 .tth-category-section {

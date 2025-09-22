@@ -63,7 +63,7 @@ export default function ListeArtisans() {
   const [artisans, setArtisans] = useState(MOCK_ARTISANS);
 
   // ---- (Optionnel) Phase 2: prêt pour brancher l’API
-  // const API_URL = import.meta.env.VITE_API_URL || "";
+  // const API_URL = import.meta.env.VITE_API_URL;
   // useEffect(() => {
   //   fetch(`${API_URL}/artisans`)
   //     .then((r) => r.json())

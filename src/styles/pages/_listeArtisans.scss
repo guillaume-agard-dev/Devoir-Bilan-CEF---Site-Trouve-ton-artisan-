@@ -1,0 +1,49 @@
+/* HERO */
+.tth-hero {
+  min-height: clamp(260px, 33vh, 420px);
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25)),
+    var(--hero-bg) center/cover no-repeat;
+  color: #fff;
+
+  .container { padding-block: clamp(2rem, 7vh, 4rem); }
+
+  .hero-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.7rem);
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
+  }
+}
+
+/* Sticky nav avec offset pour ta navbar fixe si besoin */
+.tth-sticky-nav {
+  position: sticky;
+  top: 88px; // ajuste selon la hauteur de ta navbar
+}
+
+/* Sections ancrées : marge de scroll pour éviter que le titre soit caché sous la navbar */
+.tth-category-section {
+  scroll-margin-top: 100px;
+}
+
+/* Étoiles */
+.rating {
+  display: inline-flex;
+  gap: .15rem;
+  line-height: 1;
+}
+.rating .star {
+  font-size: 1.05rem;
+}
+.rating .star.filled { color: #f5c518; } /* or */
+.rating .star.empty  { color: #dee2e6; }
+
+.card:hover {
+  transform: translateY(-2px);
+  transition: transform .15s ease;
+}
+
+.tth-category-section {
+    color: var(--clr-neutral-900);
+}

@@ -63,9 +63,9 @@ function Stars({ value = 0, size = 18 }) {
 export default function ArtisansDuMois() {
   // 👉 Modifie ici tes 3 artisans du mois
   const featured = [
-    { id: 7, nom: "Dupont Menuiserie", note: 4.6, specialite: "Menuisier", ville: "Lyon 2e" },
-    { id: 12, nom: "Atelier Belle Fleur", note: 4.9, specialite: "Fleuriste", ville: "Villeurbanne" },
-    { id: 3, nom: "Plomberie Martin", note: 4.3, specialite: "Plombier", ville: "Vénissieux" },
+    { id: 5, nom: "Orville Salmons", note: 5, specialite: "Chauffagiste", ville: "Evian" },
+    { id: 11, nom: "Ernest Carignan", note: 5, specialite: "Ferronier", ville: "Le-Puy-en-Velay" },
+    { id: 3, nom: "Chocolaterie Labbé", note: 4.9, specialite: "Chocolatier", ville: "Lyon" },
   ];
 
   return (

@@ -65,7 +65,6 @@ export default function Home() {
                 <div className="step-block">
                   <div className="step-left">
                     <div className="step-line">
-                      {/* <span className="num">{s.n}.</span> */}
                       <p className="text m-0">{s.text}</p>
                     </div>
                   </div>

@@ -64,7 +64,7 @@ export default function FicheArtisans() {
 
   return (
     <main>
-      {/* HERO (inchangé, mais on met le nom) */}
+      {/* HERO */}
       <header className="tth-hero d-flex align-items-end" style={{ "--hero-bg": `url(${heroUrl})` }}>
         <div className="container">
           <h1 className="hero-title">Mon artisan</h1>

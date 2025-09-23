@@ -1,4 +1,4 @@
-// src/data/artisansData.js
+
 import raw from "./v_artisans_cards.json";
 
 // --- utilitaires
@@ -32,7 +32,7 @@ function mapCategory(label) {
   return slugify(x);
 }
 
-// Normalisation d’une ligne de la vue → shape pour tes cards/pages
+// Normalisation d’une ligne de la vue → shape pour les cards/pages
 function normalize(row) {
   const note = Number.parseFloat(row.note ?? "0") || 0; // ex: "4.5"
   const rating = Math.round(note); // étoiles pleines 0..5
@@ -42,7 +42,7 @@ function normalize(row) {
     id: Number(row.id),
     name,
     rating,             // entier 0..5 (pour le composant étoiles simple)
-    rating_raw: note,   // conserve la décimale si tu veux des demi-étoiles plus tard
+    rating_raw: note,   
     specialty: row.specialites ?? "",
     location: row.ville ?? "",
     category: mapCategory(row.domaines),
@@ -73,13 +73,13 @@ export function getArtisanById(id) {
   return _rows.find((a) => a.id === Number(id)) || null;
 }
 
-// Option : artisans “mis en avant” — en dur (remplace par tes IDs choisis)
-const FEATURED_IDS = [1, 5, 7]; // <- à adapter si tu veux choisir précisément
+
+const FEATURED_IDS = [1, 5, 7]; // <- à adapter si on veux choisir précisément
 export function getFeaturedArtisans(count = 3) {
   const map = new Map(_rows.map((a) => [a.id, a]));
   const chosen = FEATURED_IDS.map((id) => map.get(id)).filter(Boolean);
   if (chosen.length >= count) return chosen.slice(0, count);
-  // sinon complète avec les mieux notés
+  // sinon on complète avec les mieux notés
   const top = getArtisans().filter((a) => !FEATURED_IDS.includes(a.id));
   return [...chosen, ...top].slice(0, count);
 }

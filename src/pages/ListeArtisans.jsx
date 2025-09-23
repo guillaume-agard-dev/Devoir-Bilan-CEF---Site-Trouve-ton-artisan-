@@ -1,8 +1,9 @@
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import heroUrl from "../assets/mountains.jpg";
-import { getArtisansByCategory } from "../data/artisansData";
+// plus besoin du JSON local utilisé en attendant l'intégration à la BDD MySQL
+// import { getArtisansByCategory } from "../data/artisansData";
 import "../styles/pages/_listeArtisans.scss";
 
 const CATEGORIES = [
@@ -12,7 +13,7 @@ const CATEGORIES = [
   { key: "alimentation", label: "Alimentation" },
 ];
 
-function RatingStars({ value }) {
+function RatingStars({ value = 0 }) {
   return (
     <div className="rating" aria-label={`Note ${value} sur 5`}>
       {Array.from({ length: 5 }, (_, i) => (
@@ -29,7 +30,7 @@ function ArtisanCard({ artisan }) {
         <div className="card-body">
           <h3 className="h5 card-title mb-1">{artisan.name}</h3>
           <RatingStars value={artisan.rating} />
-          <div className="medium text-muted mt-2">{artisan.specialty}</div>
+          <div className="small text-muted mt-2">{artisan.specialty}</div>
           <div className="small mt-1">📍{artisan.location}</div>
           <Link to={`/fiche-artisans/${artisan.id}`} className="stretched-link" />
         </div>
@@ -40,18 +41,50 @@ function ArtisanCard({ artisan }) {
 
 export default function ListeArtisans() {
   const location = useLocation();
+  const [artisans, setArtisans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  // Fetch depuis l'API
   useEffect(() => {
-    if (location.hash) {
+    const ac = new AbortController();
+    (async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const res = await fetch(`${API_URL}/artisans`, { signal: ac.signal });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        setArtisans(Array.isArray(data) ? data : []);
+      } catch (e) {
+        if (e.name !== "AbortError") setError(e.message || "Erreur de chargement");
+      } finally {
+        setLoading(false);
+      }
+    })();
+    return () => ac.abort();
+  }, [API_URL]);
+
+  // Regroupement par catégorie
+  const byCategory = useMemo(() => {
+    const groups = Object.fromEntries(CATEGORIES.map(c => [c.key, []]));
+    for (const a of artisans) if (groups[a.category]) groups[a.category].push(a);
+    return groups;
+  }, [artisans]);
+
+  // Scroll vers l’ancre après chargement
+  useEffect(() => {
+    if (!loading && location.hash) {
       const id = location.hash.slice(1);
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }, [location.hash]);
+  }, [loading, location]);
 
   return (
     <main>
-      {/* HERO (inchangé) */}
+      {/* HERO */}
       <header className="tth-hero d-flex align-items-end" style={{ "--hero-bg": `url(${heroUrl})` }}>
         <div className="container">
           <h1 className="hero-title">Liste des artisans</h1>
@@ -93,21 +126,29 @@ export default function ListeArtisans() {
 
           {/* CONTENU */}
           <div className="col-lg-9">
-            {CATEGORIES.map((c) => {
-              const items = getArtisansByCategory(c.key);
-              return (
-                <section key={c.key} id={c.key} className="tth-category-section mb-5">
-                  <h2 className="h4 mb-3">{c.label}</h2>
-                  {items.length ? (
-                    <div className="row g-3 g-md-4">
-                      {items.map(a => <ArtisanCard key={a.id} artisan={a} />)}
-                    </div>
-                  ) : (
-                    <p className="text-muted">Aucun artisan pour cette catégorie.</p>
-                  )}
-                </section>
-              );
-            })}
+            {loading && (
+              <div className="text-center my-5">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Chargement…</span>
+                </div>
+              </div>
+            )}
+
+            {error && <div className="alert alert-danger">Erreur : {error}</div>}
+
+            {!loading && !error && CATEGORIES.map((c) => (
+              <section key={c.key} id={c.key} className="tth-category-section mb-5">
+                <h2 className="h4 mb-3">{c.label}</h2>
+                {byCategory[c.key]?.length ? (
+                  <div className="row g-3 g-md-4">
+                    {byCategory[c.key].map(a => <ArtisanCard key={a.id} artisan={a} />)}
+                  </div>
+                ) : (
+                  <p className="text-muted">Aucun artisan pour cette catégorie.</p>
+                )}
+              </section>
+            ))}
+
             <div className="text-end">
               <a href="#" className="small">↑ Retour en haut</a>
             </div>

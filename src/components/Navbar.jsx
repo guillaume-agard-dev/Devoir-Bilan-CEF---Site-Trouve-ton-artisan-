@@ -1,6 +1,10 @@
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import logoUrl from "../assets/logo.png";
+import { findBestArtisanByName } from "../data/artisansData";
+
+import { getArtisans } from "../data/artisansData";
+const names = getArtisans().map(a => a.name);
 
 export default function Navbar() {
   const location = useLocation();
@@ -21,13 +25,18 @@ export default function Navbar() {
 
   const navLinkClass = ({ isActive }) => `nav-link${isActive ? " active" : ""}`;
 
-  const onSearchSubmit = (e) => {
-    e.preventDefault();
-    const q = term.trim();
-    // Redirige vers la page fiche artisans avec le terme en querystring
-    navigate(q ? `/fiche-artisans?search=${encodeURIComponent(q)}` : "/fiche-artisans");
-    setTerm("");
-  };
+   const onSearchSubmit = (e) => {
+     e.preventDefault();
+     const q = term.trim();
+     if (!q) return;
+     const found = findBestArtisanByName(q);
+     if (found) {
+       navigate(`/fiche-artisans/${found.id}`);
+     } else {
+       navigate("/liste-artisans");
+     }
+     setTerm("");
+   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary app-navbar">
@@ -110,6 +119,7 @@ export default function Navbar() {
               Rechercher un artisan
             </label>
             <input
+              list="artisan-names"
               id="navSearch"
               type="search"
               className="form-control"
@@ -118,6 +128,9 @@ export default function Navbar() {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
             />
+            <datalist id="artisan-names">
+              {names.map(n => <option key={n} value={n} />)}
+            </datalist>
             <button type="submit" className="btn">
               Rechercher
             </button>

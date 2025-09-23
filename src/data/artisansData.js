@@ -83,3 +83,45 @@ export function getFeaturedArtisans(count = 3) {
   const top = getArtisans().filter((a) => !FEATURED_IDS.includes(a.id));
   return [...chosen, ...top].slice(0, count);
 }
+
+// --- Recherche par nom (accent-insensible)
+const normalizeStr = (s) =>
+  (s ?? "")
+    .toString()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "") // supprime les accents
+    .toLowerCase()
+    .trim();
+
+/**
+ * Retourne la liste d'artisans dont le nom matche le terme.
+ * Classement: exact > commence par > contient.
+ */
+export function searchArtisansByName(term) {
+  const q = normalizeStr(term);
+  if (!q) return [];
+  const items = getArtisans();
+  return items
+    .map((a) => {
+      const name = normalizeStr(a.name);
+      let score = 0;
+      if (name === q) score = 3;
+      else if (name.startsWith(q)) score = 2;
+      else if (name.includes(q)) score = 1;
+      return { a, score, pos: name.indexOf(q) };
+    })
+    .filter((x) => x.score > 0)
+    .sort(
+      (x, y) =>
+        y.score - x.score || // meilleur type de match
+        x.pos - y.pos || // plus tôt dans le nom
+        y.a.rating_raw - x.a.rating_raw || // mieux noté
+        x.a.name.localeCompare(y.a.name)
+    )
+    .map((x) => x.a);
+}
+
+/** Retourne le "meilleur" artisan pour ce terme, ou null. */
+export function findBestArtisanByName(term) {
+  return searchArtisansByName(term)[0] || null;
+}

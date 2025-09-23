@@ -8,6 +8,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import DonneesPersonnelles from "./pages/DonneesPersonnelles";
 import Accessibilite from "./pages/Accessibilite";
 import Cookies from "./pages/Cookies";
+import Page404 from "./pages/Page404";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/donnees-personnelles" element={<DonneesPersonnelles />} />
         <Route path="/accessibilite" element={<Accessibilite />} />
         <Route path="/cookies" element={<Cookies />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
       </main>
       <Footer />
